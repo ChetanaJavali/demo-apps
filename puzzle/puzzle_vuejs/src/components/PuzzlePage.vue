@@ -577,6 +577,10 @@ input{
         </footer>
         <div class="link-footer"></div>
       </div>
+	<SocialMedia
+       v-if="!gameStarted && gameEnded"
+       :style="flex-hv-center"
+       ></SocialMedia>
     </div>
   </div>
 </template>
@@ -586,6 +590,7 @@ import Game from "./Game";
 import Chip from "./Chip";
 import StakeRow from "./StakeRow";
 import TxHistoryLink from "./TxHistoryLink";
+import SocialMedia from "./SocialMedia";
 import RedeemPanel from "./RedeemPanel";
 import { TweenLite } from "gsap/TweenMax";
 import Vue from "vue";
@@ -636,6 +641,7 @@ export default {
   components: {
     Game,
     Chip,
+    SocialMedia,
     StakeRow,
     TxHistoryLink,
     RedeemPanel,

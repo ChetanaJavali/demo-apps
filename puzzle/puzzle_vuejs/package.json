@@ -24,7 +24,8 @@
     "vue": "^2.5.2",
     "vue-analytics": "^5.16.4",
     "vue-router": "^3.0.1",
-    "vue-social-sharing": "^2.4.4"
+    "vue-social-sharing": "^2.4.4",
+    "vue-socialmedia-share": "^1.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -84,7 +85,9 @@
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "vue-social-sharing": "^2.4.4",
+    "vue-socialmedia-share": "^1.0.1"
   },
   "engines": {
     "node": ">= 6.0.0",

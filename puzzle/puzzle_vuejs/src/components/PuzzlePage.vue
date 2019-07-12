@@ -1,7 +1,26 @@
+Skip to content
+
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+
+@ChetanaJavali
+0
+0 6 katienza/demo-apps
+forked from harmony-one/demo-apps
+ Code  Pull requests 0  Projects 0  Wiki  Security  Insights
+demo-apps/puzzle/puzzle_vuejs/src/components/PuzzlePage.vue
+@katienza katienza Removed coupon render, added social sharing and dont lose hope logic.
+af95655 10 days ago
+@rhacker @alajko @Leland-Kwong @lzl124631x @mikedoan @LeoHChen @katienza
+868 lines (796 sloc)  21.9 KB
+
 <style scoped lang="less">
 .redeem-help-link:before {
   content: "want binance referral id?";
-
   // width: 25px;
   // height: 25px;
   // line-height: 25px;
@@ -11,11 +30,9 @@
   // color: #fff;
   // font-weight: normal;
 }
-
 .btn-primary {
   background: #1B295E;
 }
-
 .score-container {
   margin-right: auto;
   margin-left: auto;
@@ -24,21 +41,18 @@
   flex: 1;
   flex-direction: row;
 }
-
 footer {
   margin: 1em auto 0;
   .btn-primary {
     font-size: 1em;
   }
 }
-
 .board-wrapper {
   position: relative;
   margin: 0 auto;
   flex-grow: 0;
   flex-shrink: 0;
 }
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
@@ -46,14 +60,12 @@ footer {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-
 .game-over-message {
   font-weight: bold;
   text-align: center;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 0.3em;
 }
-
 .content-tutorial {
   height: 100%;
   padding: 0 12px;
@@ -62,7 +74,6 @@ footer {
   align-items: center;
   justify-content: center;
 }
-
 .continue-playing-button {
   margin-top: 9.17892px;
   background: none;
@@ -70,7 +81,6 @@ footer {
   border-radius: 6px;
   color: #1B295E;
 }
-
 .content-level10 {
   .buttons {
     margin: 20px 0;
@@ -81,7 +91,6 @@ footer {
     }
   }
 }
-
 .main-container {
   height: 100%;
   .game-container {
@@ -100,11 +109,9 @@ footer {
     }
   }
 }
-
 .blur-text {
   opacity: 0.8;
 }
-
 .appearing {
   animation: appearing 1.2s;
   -webkit-animation: appearing 1.2s;
@@ -116,31 +123,25 @@ input{
   animation: disappearing 3s;
   -webkit-animation: disappearing 3s;
 }
-
 @keyframes disappearing {
   0% {
     opacity: 1;
   }
-
   25% {
     opacity: 1;
   }
-
   100% {
     opacity: 0;
   }
 }
-
 @keyframes appearing {
   0% {
     opacity: 0;
   }
-
   100% {
     opacity: 1;
   }
 }
-
 .action-row + .action-row {
   margin-top: 1em;
 }
@@ -163,33 +164,26 @@ input{
     }
   }
 }
-
 @keyframes headShake {
   0% {
     transform: translateX(0);
   }
-
   6.5% {
     transform: translateX(-6px) rotateY(-9deg);
   }
-
   18.5% {
     transform: translateX(5px) rotateY(7deg);
   }
-
   31.5% {
     transform: translateX(-3px) rotateY(-5deg);
   }
-
   43.5% {
     transform: translateX(2px) rotateY(3deg);
   }
-
   50% {
     transform: translateX(0);
   }
 }
-
 .number-increase {
   display: block;
   position: absolute;
@@ -203,7 +197,6 @@ input{
   0% {
     opacity: 0.7;
   }
-
   100% {
     opacity: 0;
     transform: translateY(-40px);
@@ -228,7 +221,6 @@ input{
 .icon-token {
   background-size: contain;
 }
-
 .icon-clock {
   background-image: url(../assets/clock.svg);
 }
@@ -257,76 +249,62 @@ input{
   font-size: initial;
   outline: none;
 }
-
 .inputs {
   display: flex;
   margin: 0 10px;
 }
-
   .is-level10 {
     .inputs {
       background-color: "red" !important;
     }
-
     .input-error {
       font-size: 14px;
       color: red;
     }
-
     .texts {
       margin-top: 10px;
     }
   }
-
   img.loading {
     width: 50px;
   }
-
   .redeemed-section {
     font-size: 50px;
     color: darkgreen;
   }
-
   .lose-hope-image {
     img {
       width: 90px;
     }
-
     margin-bottom: 10px;
   }
-
 .congrats-trophy {
   margin-top: -5px;
 }
-
 // Large devices (desktops, less than 1200px)
 @media (max-width: 1199.98px) {
   .congrats-trophy img {
     width: 150px;
   }
 }
-
 // Medium devices (tablets, less than 992px)
 @media (max-width: 991.98px) {
   .congrats-trophy img {
     width: 100px;
   }
 }
-
 // Small devices (landscape phones, less than 768px)
 @media (max-width: 767.98px) {
   .congrats-trophy img {
     width: 100px;
   }
 }
-
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
   .congrats-trophy img {
     width: 100px;
   }
 }
-
 </style>
 
 <template>
@@ -491,7 +469,8 @@ input{
         </footer>
         <div class="link-footer"></div>
       </div>
-	<SocialMedia
+
+      <SocialMedia
        v-if="!gameStarted && gameEnded"
        :style="flex-hv-center"
        ></SocialMedia>
@@ -502,10 +481,9 @@ input{
 <script>
 import Game from "./Game";
 import Chip from "./Chip";
+import SocialMedia from "./SocialMedia";
 import StakeRow from "./StakeRow";
 import TxHistoryLink from "./TxHistoryLink";
-import SocialMedia from "./SocialMedia";
-import RedeemPanel from "./RedeemPanel";
 import { TweenLite } from "gsap/TweenMax";
 import Vue from "vue";
 import service from "../service";
@@ -514,7 +492,6 @@ import { levels } from "../level-generator";
 import { setInterval, clearInterval } from "timers";
 import Fireworks from "./Fireworks";
 import { VALIDATE } from "../common/validate";
-
 const InitialSeconds = 15;
 function guid() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
@@ -523,7 +500,6 @@ function guid() {
     return v.toString(16);
   });
 }
-
 function getParameterByName(name) {
   var undefined;
   name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -533,7 +509,6 @@ function getParameterByName(name) {
     ? undefined
     : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
-
 window.mobilecheck = function() {
   var check = false;
   (function(a) {
@@ -549,15 +524,14 @@ window.mobilecheck = function() {
   })(navigator.userAgent || navigator.vendor || window.opera);
   return check;
 };
-
 export default {
   name: "PuzzlePage",
   components: {
     Game,
     Chip,
-    SocialMedia,
     StakeRow,
     TxHistoryLink,
+    SocialMedia,
     Fireworks
   },
   data() {
@@ -567,7 +541,6 @@ export default {
       showCouponLevel: 99,
       levelToShowTwitter: 10,
       levelToShowNoLose: 9,
-
       // variables
       globalData: store.data,
       levelIndex: 0,
@@ -611,7 +584,6 @@ export default {
       window.innerHeight / 1.7
     );
     service.register(id);
-
     this.$root.$on('social_shares_open', function(network, url) {
       _vm.trackTweet()
     })
@@ -713,15 +685,12 @@ export default {
     twitterTitle() {
       return `I finished level ${this.levelIndex} of #harmonypuzzle! See my winning moves on @harmonyprotocol #blockchain https://explorer2.harmony.one/#/address/${this.globalData.address} Play it at https://puzzle.harmony.one`
     },
-
     showTwitterLevel() {
       return this.levelIndex >= this.levelToShowTwitter;
     },
-
     showNoLoseLevel() {
       return this.levelIndex <= this.levelToShowNoLose;
     },
-
     /**
      * Show reset button
      * @return {boolean}
@@ -754,11 +723,9 @@ export default {
     resetLevel() {
       this.$refs[`game${this.levelIndex}`][0].reset();
     },
-
     userGameLevel() {
       return `user-game-level-${this.levelIndex + 1}`
     },
-
     /***
      * Track analytics current level
      * @param level
@@ -778,7 +745,6 @@ export default {
     onLevelComplete(moves) {
       this.gaTrack(this.levelIndex);
       this.trackTimePlayed();
-
       if (this.levelIndex === this.levels.length - 1) {
         this.endLastGame();
         return;
@@ -826,23 +792,19 @@ export default {
         }
       }, 1000);
     },
-
     startTimePlayed() {
       this.timePlayedTimer = setInterval(() => {
         this.timePlayed++;
       }, 1000);
     },
-
     resetTimePlayed() {
       this.timePlayed = 0;
     },
-
     trackTimePlayed() {
       const currentLevel = this.levelIndex + 1;
       this.$ga.event('time-played', `game-level-${currentLevel}`, this.timePlayed.toString())
       this.resetTimePlayed();
     },
-
     /**
      * Restart the game but still keeps the current point
      */
@@ -854,14 +816,12 @@ export default {
       this.gameEnded = false;
       this.secondsLeft = InitialSeconds;
       this.startTimer();
-
       service
         .stakeToken(this.globalData.privkey, this.globalData.stake)
         .then(() => {
           this.$emit("stake", this.globalData.stake);
         });
     },
-
     /**
      * Reload the game entirely
      */
@@ -872,3 +832,15 @@ export default {
   }
 };
 </script>
+© 2019 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About

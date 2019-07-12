@@ -25,6 +25,7 @@ import PuzzlePage from "./PuzzlePage";
 // import TutorialPage from "./TutorialPage";
 // import StakePage from "./StakePage";
 import service from "../service";
+import SocialMedia from "./SocialMedia";
 
 const StakePageIndex = 3;
 const TutorialPageIndex = 4;
@@ -37,7 +38,8 @@ export default {
     // KeyPage,
     // TutorialPage,
     // StakePage,
-    PuzzlePage
+    PuzzlePage,
+    SocialMedia
   },
   data() {
     return {

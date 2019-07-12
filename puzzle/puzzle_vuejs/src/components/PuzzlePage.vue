@@ -565,8 +565,8 @@ export default {
       // constants
       fireworkLevel: 99,
       showCouponLevel: 99,
-      levelToShowTwitter: 10,
-      levelToShowNoLose: 9,
+      levelToShowTwitter: 0,
+      levelToShowNoLose: 1,
 
       // variables
       globalData: store.data,

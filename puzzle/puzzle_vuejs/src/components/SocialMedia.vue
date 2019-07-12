@@ -35,7 +35,9 @@ h2 {
 
 .social-media > span {
   padding: 0.5em;
+  position: relative;
+  bottom: -20px;
+
 }
 
 </style>
-

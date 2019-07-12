@@ -1,23 +1,3 @@
-Skip to content
-
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
-
-@ChetanaJavali
-0
-0 6 katienza/demo-apps
-forked from harmony-one/demo-apps
- Code  Pull requests 0  Projects 0  Wiki  Security  Insights
-demo-apps/puzzle/puzzle_vuejs/src/components/PuzzlePage.vue
-@katienza katienza Removed coupon render, added social sharing and dont lose hope logic.
-af95655 10 days ago
-@rhacker @alajko @Leland-Kwong @lzl124631x @mikedoan @LeoHChen @katienza
-868 lines (796 sloc)  21.9 KB
-
 <style scoped lang="less">
 .redeem-help-link:before {
   content: "want binance referral id?";
@@ -832,15 +812,3 @@ export default {
   }
 };
 </script>
-© 2019 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
